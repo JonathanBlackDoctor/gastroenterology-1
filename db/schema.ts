@@ -12,3 +12,10 @@ export const progressCounts = sqliteTable(
   },
   (table) => [primaryKey({ columns: [table.userId, table.courseSlug, table.sessionId, table.itemKey] })],
 );
+
+export const courseManifests = sqliteTable("course_manifests", {
+  courseSlug: text("course_slug").primaryKey(),
+  manifestJson: text("manifest_json").notNull(),
+  updatedBy: text("updated_by").notNull(),
+  updatedAt: text("updated_at").notNull(),
+});

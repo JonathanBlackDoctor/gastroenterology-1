@@ -1,4 +1,5 @@
 import { AppShell } from "../components/app-shell";
+import { ManifestUploader } from "../components/manifest-uploader";
 import { getCourseManifest } from "../lib/course-data";
 
 export const dynamic = "force-dynamic";
@@ -40,6 +41,7 @@ export default async function AutomationPage() {
           </dl>
         </aside>
       </section>
+      <ManifestUploader />
     </AppShell>
   );
 }

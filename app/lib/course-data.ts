@@ -25,7 +25,16 @@ function getVariable(name: string): string | undefined {
   return value?.trim() ? value : undefined;
 }
 
-function validateManifest(value: unknown): CourseManifest {
+const CREATE_MANIFEST_TABLE_SQL = `
+  CREATE TABLE IF NOT EXISTS course_manifests (
+    course_slug TEXT PRIMARY KEY NOT NULL,
+    manifest_json TEXT NOT NULL,
+    updated_by TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+  )
+`;
+
+export function validateManifest(value: unknown): CourseManifest {
   if (!value || typeof value !== "object") throw new Error("manifest is not an object");
   const manifest = value as Partial<CourseManifest>;
   if (
@@ -38,6 +47,21 @@ function validateManifest(value: unknown): CourseManifest {
     throw new Error("manifest schema is invalid");
   }
   return manifest as CourseManifest;
+}
+
+async function getManifestFromD1(): Promise<CourseManifest | null> {
+  try {
+    if (!env.DB) return null;
+    const db = env.DB as D1Database;
+    await db.prepare(CREATE_MANIFEST_TABLE_SQL).run();
+    const row = await db.prepare(
+      "SELECT manifest_json AS manifestJson FROM course_manifests ORDER BY updated_at DESC LIMIT 1",
+    ).first<{ manifestJson: string }>();
+    return row?.manifestJson ? validateManifest(JSON.parse(row.manifestJson)) : null;
+  } catch (error) {
+    console.error("Unable to load course data from D1", error);
+    return null;
+  }
 }
 
 async function getManifestFromPrivateRepository(): Promise<CourseManifest | null> {
@@ -70,6 +94,9 @@ export async function getCourseManifest(): Promise<CourseManifest> {
   }
   const inlineManifest = getVariable("COURSE_MANIFEST_JSON");
   if (inlineManifest) return validateManifest(JSON.parse(inlineManifest));
+
+  const storedManifest = await getManifestFromD1();
+  if (storedManifest) return storedManifest;
 
   try {
     const remote = await getManifestFromPrivateRepository();
