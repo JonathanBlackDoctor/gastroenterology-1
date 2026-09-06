@@ -1,0 +1,4 @@
+interface:
+  display_name: "Study Cycle"
+  short_description: "Build and maintain a private repeatable class study cycle."
+  default_prompt: "Use $study-cycle to import a timetable, preserve stable session numbers, and prepare the study tracker and automations."
