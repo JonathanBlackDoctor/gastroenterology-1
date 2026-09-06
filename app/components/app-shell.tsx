@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 const navigation = [
   { href: "/", label: "진도" },
+  { href: "/upload", label: "강의록 올리기" },
   { href: "/notebooks", label: "노트북 LM" },
   { href: "/materials", label: "학습 자료" },
   { href: "/automation", label: "자동화" },

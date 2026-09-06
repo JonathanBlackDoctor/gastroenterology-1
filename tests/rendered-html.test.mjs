@@ -19,6 +19,9 @@ test("build includes the tracker identity and study surfaces", () => {
   assert.match(serverFile, /노트북 LM/);
   assert.match(serverFile, /예열/);
   assert.match(serverFile, /직후 회상/);
+  assert.match(serverFile, /강의록 올리기/);
+  assert.match(serverFile, /전날 23:00/);
+  assert.match(serverFile, /00:00/);
 });
 
 test("starter preview content is removed", () => {
