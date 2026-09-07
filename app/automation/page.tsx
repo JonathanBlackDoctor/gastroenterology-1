@@ -5,8 +5,9 @@ import { getCourseManifest } from "../lib/course-data";
 export const dynamic = "force-dynamic";
 
 const steps = [
-  { time: "전날 23:00", title: "강의록 마감 확인", body: "다음 날 수업에 연결된 PDF가 없으면 업로드 알림을 보냅니다." },
+  { time: "전날 23:00", title: "강의록·작년 자료 확인", body: "올해 PDF가 없으면 2025 시간표와 Drive에서 대응 강의록을 찾아 알림에 표시합니다." },
   { time: "00:00", title: "첫 브리핑", body: "오늘 일정과 첫 수업 예습 요약을 자정에 먼저 보냅니다." },
+  { time: "01:00", title: "작년 강의록 대체", body: "올해 PDF가 여전히 없으면 확인된 작년 자료를 사용하고, 이후 올해 자료가 올라오면 즉시 교체합니다." },
   { time: "06:00", title: "강의록 동기화", body: "Drive 새 파일과 수정본을 확인하고 고정 차시에 연결합니다." },
   { time: "06:30", title: "아침 재전송", body: "오늘 일정과 첫 수업 예습 요약을 한 번 더 보냅니다." },
   { time: "T−10", title: "수업 예열", body: "3분 안에 읽을 구조 지도와 수업 중 답을 찾을 질문을 보냅니다." },

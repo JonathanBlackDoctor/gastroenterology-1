@@ -60,7 +60,7 @@ export default async function UploadPage() {
           <div className="sync-times">
             {syncWindows.map((time) => <time key={time}>{time}</time>)}
           </div>
-          <p>다음 날 강의록이 전날 23:00까지 확인되지 않으면 업로드 알림을 보냅니다.</p>
+          <p>전날 23:00까지 올해 강의록이 없으면 작년 후보를 함께 알리고, 당일 01:00에도 없으면 작년 자료를 대신 사용합니다.</p>
         </aside>
       </section>
     </AppShell>

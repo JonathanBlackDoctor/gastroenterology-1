@@ -13,9 +13,11 @@ Use this workflow for one course block at a time. Treat session sequence numbers
 2. Run `scripts/import_timetable.py`. For a revision, always pass `--previous`; never rebuild numbering from row order.
 3. Review every session with `status: review`. Do not guess ambiguous matches.
 4. Check the lecture-material source for newly uploaded or changed PDFs. One PDF/source group becomes one NotebookLM notebook, even when it spans several sessions.
-5. Generate the three archived briefs described in `references/prompts.md`: warm-up, immediate recall, and note-organization guide.
-6. In NotebookLM, name each notebook `<first>~<last>. <title>(<professor>)` or `<number>. <title>(<professor>)`. Create standard-count, standard-difficulty flashcards plus one medium and one hard quiz, both with the highest available question count.
-7. Save private manifest/material updates, refresh the private site, and dispatch only the brief appropriate to the current schedule window.
+5. For a next-day session still missing a current-year PDF at 23:00, consult the private `sources/legacy-materials.json` catalog and include the matched previous-year candidate (or `not found`) in the Telegram alert. Never expose the raw Drive URL in message text.
+6. At 01:00 Asia/Seoul, if the current-year PDF is still missing and the user has not explicitly put the candidate on hold, activate the eligible previous-year candidate in `automation/legacy-fallbacks.json` and use it for briefs and NotebookLM catch-up. A later current-year upload always supersedes the fallback.
+7. Generate the three archived briefs described in `references/prompts.md`: warm-up, immediate recall, and note-organization guide. Clearly label briefs grounded in a previous-year fallback until a current-year note replaces it.
+8. In NotebookLM, name each notebook `<first>~<last>. <title>(<professor>)` or `<number>. <title>(<professor>)`. Create standard-count, standard-difficulty flashcards plus one medium and one hard quiz, both with the highest available question count.
+9. Save private manifest/material updates, refresh the private site, and dispatch only the brief appropriate to the current schedule window.
 
 ## Timetable Rules
 
@@ -32,6 +34,7 @@ Use this workflow for one course block at a time. Treat session sequence numbers
 - Consumer NotebookLM browser actions require an available signed-in Chrome session. Queue them and catch up when the PC is on.
 - Never place timetable data, lecture PDFs, generated medical study content, authentication tokens, bot tokens, or private repository tokens in the public code repository.
 - Medical summaries are study aids, not clinical decision support. Preserve uncertainty and do not invent claims absent from the lecture source.
+- Treat previous-year notes as provisional. State the source year in generated artifacts, preserve any professor-change warning, and replace them when the current-year PDF arrives.
 
 ## Import Command
 
